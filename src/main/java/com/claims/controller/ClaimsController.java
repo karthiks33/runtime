@@ -2,6 +2,7 @@ package com.claims.controller;
 
 import com.claims.model.Information;
 import com.claims.model.Result;
+import com.claims.repository.ClaimsRepository;
 import com.claims.repository.InformationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ public class ClaimsController {
     @Autowired
     private InformationRepository informationRepository;
 
+    @Autowired
+    private ClaimsRepository claimsRepository;
+
     @GetMapping("/")
     public void welcomePage(HttpServletResponse httpServletResponse) {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(
@@ -34,6 +38,19 @@ public class ClaimsController {
     public String testService() {
         return "success";
     }
+
+    //Claims CRUD
+    @RequestMapping(value = "/listClaims", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getAllClaims() {
+        try {
+            logger.info("Getting all claims");
+            return new ResponseEntity<>(claimsRepository.findAll(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex + " <== error", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
     @RequestMapping(value = "/info/save", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> saveInfo(@RequestBody Information info) {

@@ -1,6 +1,7 @@
 package com.claims.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "claims")
@@ -46,6 +47,10 @@ public class Claims {
 
     @Column(name = "CharlsonIndex")
     private String charlsonIndex;
+
+    @Column(name="CreatedAt")
+    private Date createdAt;
+
 
     public Long getId() {
         return id;
@@ -149,5 +154,13 @@ public class Claims {
 
     public void setCharlsonIndex(String charlsonIndex) {
         this.charlsonIndex = charlsonIndex;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

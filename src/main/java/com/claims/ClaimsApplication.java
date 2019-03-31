@@ -14,7 +14,7 @@ public class ClaimsApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ClaimsApplication.class);
+         return application.sources(ClaimsApplication.class);
     }
 
     public static void main(String[] args) {

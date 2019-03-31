@@ -46,7 +46,7 @@ public class ClaimsController {
     @RequestMapping(value = "/delete/{claimId}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<?> deleteClaim(@PathVariable Long claimId) {
         try {
-            logger.info("Deleting claim {}", claimId);
+            logger.info("Deleting claim {} ", claimId);
             if (claimNotExists(claimId)) {
                 return new ResponseEntity<>(new Result("Claim id does not exists"), HttpStatus.NOT_ACCEPTABLE);
             }

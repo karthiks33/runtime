@@ -25,7 +25,7 @@ public class InformationController {
         try {
             logger.info("Saving info");
             informationRepository.save(info);
-            return new ResponseEntity<>("Saved info", HttpStatus.OK);
+            return new ResponseEntity<>("Saved result info", HttpStatus.OK);
         } catch (Exception ex) {
             String errorMessage;
             errorMessage = ex + " <== error";

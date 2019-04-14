@@ -19,10 +19,10 @@ public class ApplicationConfig {
     private InMemoryService inMemoryService;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         Collection<Chatbot> chatBot = chatbotRepository.findAll();
         for (Chatbot allName : chatBot) {
-            this.inMemoryService.addMessage(allName.getName().toLowerCase(),allName.getDescription());
+            this.inMemoryService.addMessage(allName.getName().toLowerCase(), allName.getDescription());
         }
     }
 }

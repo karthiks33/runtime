@@ -6,4 +6,5 @@ insert into information values(2,"This is incidents details");
 insert into information values(3,"This is customers details");
 insert into information values(4,"This is about details");
 insert into information values(4,"This is about details");
+
 //web app moved to new project

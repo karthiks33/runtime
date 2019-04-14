@@ -1,7 +1,6 @@
 package com.claims.controller;
 
 import com.claims.model.Claims;
-import com.claims.model.Information;
 import com.claims.model.Result;
 import com.claims.repository.ClaimsRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
 import java.util.Collection;
 import java.util.Date;
 

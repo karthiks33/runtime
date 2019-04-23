@@ -5,6 +5,15 @@ import java.util.Date;
 
 @Entity
 @Table(name = "claims")
+@NamedStoredProcedureQueries({
+     @NamedStoredProcedureQuery(name = "sp_chatbot",
+                procedureName = "sp_chatbot",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "description", type = String.class)
+                })
+
+})
 public class Claims {
 
     @Id

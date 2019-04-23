@@ -65,9 +65,7 @@ public class ClaimsController {
             Claims savedClaims = claimsRepository.save(claims);
             return new ResponseEntity<>(new Result("Saved claims successfully with id " + savedClaims.getId()), HttpStatus.OK);
         } catch (Exception ex) {
-            String errorMessage;
-            errorMessage = ex + " <== error";
-            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+            return getResponseSaveUpdateEntity(claims, ex);
         }
     }
 
@@ -82,10 +80,17 @@ public class ClaimsController {
             Claims savedClaims = claimsRepository.save(claims);
             return new ResponseEntity<>(new Result("Claims updated successfully with id " + savedClaims.getId()), HttpStatus.OK);
         } catch (Exception ex) {
-            String errorMessage;
-            errorMessage = ex + " <== error";
-            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+            return getResponseSaveUpdateEntity(claims, ex);
         }
+    }
+
+    private ResponseEntity<?> getResponseSaveUpdateEntity(@RequestBody Claims claims, Exception ex) {
+        String errorMessage;
+        errorMessage = ex + " <== error";
+        if (errorMessage.contains("ConstraintViolationException")) {
+            errorMessage = String.format("Constraint Violation.ProviderID %s does not exist", claims.getProviderId());
+        }
+        return new ResponseEntity<>(new Result(errorMessage), HttpStatus.BAD_REQUEST);
     }
 
     private boolean claimNotExists(@RequestBody Long claimId) {

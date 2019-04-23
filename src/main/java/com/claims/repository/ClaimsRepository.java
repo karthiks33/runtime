@@ -2,7 +2,9 @@ package com.claims.repository;
 
 import com.claims.model.Claims;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -25,4 +27,6 @@ public interface ClaimsRepository extends CrudRepository<Claims, Long> {
     @Query(value = "select * from claims where vendor=?1 order by CreatedAt desc  limit 100", nativeQuery = true)
     Collection<Claims> findClaimsByVendorId(Integer id);
 
+    @Procedure(name = "sp_chatbot")
+    String callChatBot(@Param("name") String messageId);
 }

@@ -2,7 +2,10 @@ package com.claims.controller;
 
 import com.claims.model.Claims;
 import com.claims.model.Result;
+import com.claims.model.User;
 import com.claims.repository.ClaimsRepository;
+import com.claims.repository.UserRepository;
+import com.claims.repository.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,12 @@ public class ClaimsController {
 
     @Autowired
     private ClaimsRepository claimsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/test")
     public String testService() {
@@ -128,6 +137,20 @@ public class ClaimsController {
         } catch (Exception ex) {
             return new ResponseEntity<>(ex + " <== error", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> checkLoginUser(@RequestBody User user) {
+        try{
+            for (User entityUser : userRepository.findAll()) {
+                if(entityUser.getUname().equals(user.getUname()) && userService.decrypt(entityUser.getPwd()).equals(user.getPwd())){
+                    return new ResponseEntity<>(new Result("Success"), HttpStatus.OK);
+                }
+            }
+        }catch (Exception ex) {
+            return new ResponseEntity<>(new Result("Failure"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new Result("Failure"), HttpStatus.OK);
     }
 
 }

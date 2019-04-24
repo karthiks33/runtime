@@ -33,8 +33,8 @@ public class MessageController {
             String[] questionArray = question.split(" ");
             String quest="";
             for (String questionKey : questionArray) {
-                if(inMemoryService.getChatBotMessages().get(questionKey) != null){
-                    quest=questionKey;
+                if(inMemoryService.getChatBotMessages().get(questionKey.toLowerCase()) != null){
+                    quest=questionKey.toLowerCase();
                     break;
                 }
             }

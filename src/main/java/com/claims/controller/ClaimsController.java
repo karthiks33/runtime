@@ -3,9 +3,7 @@ package com.claims.controller;
 import com.claims.model.Claims;
 import com.claims.model.Result;
 import com.claims.model.User;
-import com.claims.repository.ClaimsRepository;
-import com.claims.repository.UserRepository;
-import com.claims.repository.UserService;
+import com.claims.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +28,13 @@ public class ClaimsController {
     private UserRepository userRepository;
 
     @Autowired
+    private AudiRepository audiRepository;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private InMemoryService inMemoryService;
 
     @GetMapping("/test")
     public String testService() {
@@ -153,4 +157,30 @@ public class ClaimsController {
         return new ResponseEntity<>(new Result("Failure"), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getLogs", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getLogs() {
+        try {
+            return new ResponseEntity<>(audiRepository.getLogs(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex + " <== error", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/getClusterGroups", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getCluster() {
+        try {
+            return new ResponseEntity<>(inMemoryService.getClusterGroups(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex + " <== error", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/getUniqueClusterGroups", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getUniqueCluster() {
+        try {
+            return new ResponseEntity<>(inMemoryService.getUniqueClusterGroups(), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(ex + " <== error", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

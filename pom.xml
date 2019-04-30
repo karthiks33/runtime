@@ -73,6 +73,20 @@
             <version>1.10</version>
         </dependency>
 
+        <!-- comment below dependencies for war generation as it is having conflict with tomcat-->
+        <!-- Also comment KmeansClustering class-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.11</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.11</artifactId>
+            <version>1.6.3</version>
+        </dependency>
 
     </dependencies>
 

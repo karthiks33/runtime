@@ -1,6 +1,7 @@
 package com.claims.repository;
 
 import com.claims.model.Claims;
+import com.claims.model.UserLog;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
@@ -29,4 +30,5 @@ public interface ClaimsRepository extends CrudRepository<Claims, Long> {
 
     @Procedure(name = "sp_chatbot")
     String callChatBot(@Param("name") String messageId);
+
 }
